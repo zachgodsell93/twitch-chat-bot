@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  
+    "noUnusedLocals": false,
+    "target": "ES6",                                  
     "lib": ["es6"],                                      
     "module": "commonjs",                              
-    "rootDir": "src",                                   
+    "rootDir": "./src",                                   
     "resolveJsonModule": true,                           
     "allowJs": true,                                     
     "outDir": "build",                                   
