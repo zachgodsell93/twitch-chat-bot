@@ -3,15 +3,16 @@ import dotenv from "dotenv";
 import http from "http";
 import { WebSocket } from "ws";
 const tmi = require("tmi.js");
+import { welcomeToTheDojo } from "./twitchCommands";
 
 dotenv.config();
 
 const opts: Object = {
 	identity: {
-		username: "",
-		password: "",
+		username: "dev_dojo_bot",
+		password: process.env.TWITCH_TOKEN,
 	},
-	channels: ["<Channel Name>"],
+	channels: ["dobstar93"],
 };
 
 const client = new tmi.client(opts);
@@ -20,22 +21,23 @@ const onMessageHandler = (
 	target: any,
 	context: any,
 	msg: string,
+	tags: any,
 	self: any
 ) => {
 	if (self) {
 		return;
 	} // Ignore messages from the bot
-
+	console.log(`${context.username}: ${msg}`);
 	// Remove whitespace from chat message
 	const commandName = msg.trim();
 
-	// If the command is known, let's execute it
-	if (commandName === "!dice") {
-		const num = rollDice();
-		client.say(target, `You rolled a ${num}`);
-		console.log(`* Executed ${commandName} command`);
-	} else {
-		console.log(`* Unknown command ${commandName}`);
+	if (commandName === "!hydrate") {
+		client.say(target, "You need to drink water");
+	}
+
+	if (commandName === "!welcome") {
+		welcomeToTheDojo(context.username, client, target);
+		// client.say(target, "welcome");
 	}
 };
 
