@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import http from "http";
 import { WebSocket } from "ws";
 const tmi = require("tmi.js");
-import { welcomeToTheDojo } from "./twitchCommands";
+import { welcomeToTheDojo, computerSpecs } from "./twitchCommands";
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ const opts: Object = {
 		username: "dev_dojo_bot",
 		password: process.env.TWITCH_TOKEN,
 	},
-	channels: ["dobstar93"],
+	channels: ["dobstar93", "thedevdad_"],
 };
 
 const client = new tmi.client(opts);
@@ -29,7 +29,7 @@ const onMessageHandler = (
 	} // Ignore messages from the bot
 	console.log(`${context.username}: ${msg}`);
 	// Remove whitespace from chat message
-	const commandName = msg.trim();
+	const commandName = msg.trim().toLowerCase();
 
 	if (commandName === "!hydrate") {
 		client.say(target, "You need to drink water");
@@ -37,15 +37,22 @@ const onMessageHandler = (
 
 	if (commandName === "!welcome") {
 		welcomeToTheDojo(context.username, client, target);
-		// client.say(target, "welcome");
 	}
-};
 
-// Function called when the "dice" command is issued
-const rollDice = () => {
-	const sides = 6;
-	return Math.floor(Math.random() * sides) + 1;
-};
+	if (commandName === "!specs") {
+		computerSpecs(client, target);
+	}
+
+	if (commandName.includes("error")) {
+		client.say(target, "Oh no, is Dev Dad experiencing another error?");
+		console.log("\u0007");
+		process.stdout.write("\u0007");
+	}
+
+	if (commandName.includes("bug")) {
+		client.say(target, "Oh no, is Dev Dad experiencing another error?");
+	}
+
 
 // Called every time the bot connects to Twitch chat
 const onConnectedHandler = (addr: string, port: number) => {
