@@ -49,10 +49,10 @@ const onMessageHandler = (
 		process.stdout.write("\u0007");
 	}
 
-	if (commandName.includes("bug")) {
+	if (commandName.includes("bug") || commandName.includes("bugs")) {
 		client.say(target, "Oh no, is Dev Dad experiencing another error?");
 	}
-
+};
 
 // Called every time the bot connects to Twitch chat
 const onConnectedHandler = (addr: string, port: number) => {
