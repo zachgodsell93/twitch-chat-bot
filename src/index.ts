@@ -50,7 +50,25 @@ const onMessageHandler = (
 	}
 
 	if (commandName.includes("bug") || commandName.includes("bugs")) {
-		client.say(target, "Oh no, is Dev Dad experiencing another error?");
+		client.say(target, "Oh no, is Dev Dad experiencing another bug?");
+	}
+
+	if (commandName.includes("embetr")) {
+		client.say(
+			target,
+			"I can't wait to start using the Beta to the Alpha of Embetr. Hoping I don't run into any expo crpyto issues"
+		);
+	}
+
+	if (
+		commandName.includes("react") ||
+		commandName.includes("angular") ||
+		commandName.includes("vue")
+	) {
+		client.say(
+			target,
+			"React is a superior Framework(A library technically). React < Vue < Angular"
+		);
 	}
 };
 
